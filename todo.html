@@ -1,0 +1,56 @@
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <title>CursedBots | ToDo</title>
+</head>
+<body
+  style="background-color: black;
+  color: white">
+<h1>
+  Our todo list <p id="span"></p>
+</h1>
+<a href = "https://cursedbots.xyz/" class = "btn btn-success">Back to home</a>
+<br>
+<br>
+<div class = "row" style = "margin-left: auto; margin-right: auto;">
+  <div class="col" style = "margin-left: auto; margin-right: auto;">
+  <div class="card" style="width:400px; background-color: Grey;
+  color: Black">
+    <div class="card-body">
+      <h4 class="card-title">Currently Completed</h4>
+      <p class="card-text">We've completed the following so far<br> ✔️ Add a Terms of service page <br> ✔️ Add a Privacy Policy page<br> ✔️ Add advertisement spaces<br> ✔️ Add website information tab <br>✔️ Add a forums page "Not using other website building sites'<br>✔️ Add clocks and other code blocks to spice uo the pages</p>
+  </div>
+</div>
+<br>
+<br>
+<div class="col" style = "margin-left: auto; margin-right: auto;">
+  <div class="card" style="width:400px; background-color: Grey;
+  color: Black">
+    <div class="card-body">
+      <h4 class="card-title">ToDo - Not done yet</h4>
+      <p class="card-text">Upcoming features<br>Login and OAuth system<br>User visitor counter<br>Google Ads integration<br>Uograded website information tab<br>Feedback form</p>
+  </div>
+</div>
+    </div>
+    <footer>
+       ©️2022, CursedBots.inc
+</footer>
+    </body>
+<script> 
+var span = document.getElementById('span');
+
+function time() {
+  var d = new Date();
+  var s = d.getSeconds();
+  var m = d.getMinutes();
+  var h = d.getHours();
+  span.textContent = 
+    ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+}
+
+setInterval(time, 1000);
+setInterval(refreshTime, 1000);
+</script>

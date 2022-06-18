@@ -1,0 +1,90 @@
+Function GetUpTime
+{
+	param([string] $LastBootTime)
+	$Uptime = (Get-Date) - [System.Management.ManagementDateTimeconverter]::ToDateTime($LastBootTime)
+	"Days: $($Uptime.Days); Hours: $($Uptime.Hours); Minutes: $($Uptime.Minutes)" 
+}
+
+Function GetStatusCode
+{ 
+	Param([int] $StatusCode)  
+	switch($StatusCode)
+	{
+		0 		{"Active"}
+		default {"Not Reachable"}
+	}
+}
+#Change value of the following parameter as needed
+$OutputFile = "hostoutouttest.html"
+$ServerList = Get-Content "serverList.txt"
+
+$Result = @()
+Foreach($ServerName in $ServerList)
+{
+	$pingStatus = Get-WmiObject -Query "Select * from win32_PingStatus where Address='$ServerName'"
+		
+	$Uptime = $null
+	if($pingStatus.StatusCode -eq 0)
+	{
+		$OperatingSystem = Get-WmiObject Win32_OperatingSystem -ComputerName $ServerName -ErrorAction SilentlyContinue
+		$Uptime = GetUptime( $OperatingSystem.LastBootUpTime )
+	}
+	
+    $Result += New-Object PSObject -Property @{
+	    ServerName = $ServerName
+		IPV4Address = $pingStatus.IPV4Address
+		Status = GetStatusCode( $pingStatus.StatusCode )
+	    Uptime = $Uptime
+	}
+}
+
+if($Result -ne $null)
+{
+	$HTML = '<style type="text/css">
+	#Header{font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;width:100%;border-collapse:collapse;}
+	#Header td, #Header th {font-size:14px;border:1px solid #98bf21;padding:3px 7px 2px 7px;}
+	#Header th {font-size:14px;text-align:left;padding-top:5px;padding-bottom:4px;background-color:#A7C942;color:#fff;}
+	#Header tr.alt td {color:#000;background-color:#EAF2D3;}
+	</Style>'
+
+    $HTML += "<HTML><head>
+		<script type='text/javascript'>
+		function SendIt(){
+		var ctrls = document.getElementsByName('cb');
+		var systems = [''] ;
+			for (var i=0; i < ctrls.length; i++) {
+			  if (ctrls[i].checked){window.open('http://'+ctrls[i].id + '/portnumber/pagename');};
+			};	
+		}
+		
+		</script>
+	</head><BODY>
+		<input type='button' onclick='SendIt();' value='Send Action'/>
+        <Table border=1 cellpadding=0 cellspacing=0 id=Header>
+		<TR>
+			<TH><B>Server Name</B></TH>
+			<TH><B>IP Address</B></TD>
+			<TH><B>Status</B></TH>
+			<TH><B>Action</B></TH>
+		</TR>"
+    Foreach($Entry in $Result)
+    {
+        if($Entry.Status -ne "Active")
+		{
+			$HTML += "<TR bgColor=Red>"
+		}
+		else
+		{
+			$HTML += "<TR>"
+		}
+		$HTML += "
+						<TD><input type='checkbox' name='cb' id='" + $($Entry.ServerName) + "'/>$($Entry.ServerName)</TD>
+						<TD>"+$($Entry.IPV4Address)+"</TD>
+						<TD>"+$($Entry.Status)+"</TD>
+						<TD><a href='http://"+ $($Entry.ServerName) +":portnumber/pagename'>Action name</a></TD>
+					</TR>"
+    }
+    $HTML += "</Table></BODY></HTML>"
+
+	$HTML | Out-File $OutputFile
+}

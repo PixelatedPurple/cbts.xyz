@@ -1,0 +1,9 @@
+
+#open_lol{
+  border-radius: 30px; 
+  width: 300px; 
+  transition: width 1s;
+}
+#open_lol:hover{
+  width: 400px;
+}

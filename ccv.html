@@ -1,0 +1,76 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <title>CursedCode | Verification Badge</title>
+</head>
+<body
+  style="background-color: black;
+  color: white">
+<h1>CursedCode | Verification Badge</h1><p id="span"></p>
+<a href="https://cursedbots.xyz" class="btn btn-success">Back to home</a>
+<br />
+<br />
+<div class="row" style="margin-left: auto; margin-right: auto">
+  <div class="col" style="margin-left: auto; margin-right: auto">
+    <div class="card" style="width: 950px; height: 500px; background-color: Grey;
+  color: Black">
+      <div class="card-body">
+        <h4 class="card-title">CursedCode Verified</h4>
+        <p class="card-text">
+        What does it mean to be CursedCode Verified?<br><br>To be verified by CursedCode your application(s) code has to be thoroughly checked for viruses, malware, phishing software, trojan horses, and other dangerous programs that can harm users and/or administrators
+        <br><br> How do i know if an application is verified by CursedCode? <br><br>You can click the button below to view verified websites, apps, bots, and more. Also there is a badge called the "protection seal" this seal changes regularly for security purposes
+        </p>
+        <a
+          href="https://cursedbots.xyz/ccvapps.html"
+          class="btn btn-primary" style="width: 900px"
+          >View verified applications</a
+        >
+      </div>
+    </div>
+  
+    </div>
+    <footer>
+       ©️2022, CursedBots.inc
+  </footer>
+        <h2>
+          Optional Links
+        </h2>
+        <a href="https://dsc.gg/aflac" class="btn btn-success" style="width: 950px"
+          >Discord Support</a
+          ><br><h2>Email</h2><a
+          href="mailto:cursedbotshelp@gmail.com"
+          class="btn btn-primary" style="width: 950px"
+          >
+          Email</a
+        >
+       <h2>
+         Advertisement
+    </h2>
+    <a
+          href="https://cursedbots.xyz/advertise.html"
+          class="btn btn-primary" style="width: 950px"
+          ><strong> Ad page</strong></a
+        >
+</body>
+<script>
+
+var span = document.getElementById('span');
+
+function time() {
+  var d = new Date();
+  var s = d.getSeconds();
+  var m = d.getMinutes();
+  var h = d.getHours();
+  span.textContent = 
+    ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+}
+
+setInterval(time, 1000);
+setInterval(refreshTime, 1000);
+</script>
